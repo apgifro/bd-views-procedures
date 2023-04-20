@@ -94,6 +94,30 @@ create or replace function banco.obter_telefone(
 	
 select * from banco.obter_telefone('1')
 ```
+
+
+### 2. Mostra todas as contas e saldo em banco de um cliente selecionado
+
+
+CREATE OR REPLACE FUNCTION get_CONTAS(
+	    IN c_nome VARCHAR,
+		OUT numero NUMERIC,
+		OUT numeroagencia NUMERIC,
+		OUT nire NUMERIC,
+		OUT saldo NUMERIC)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  Select * from Conta
+  INNER JOIN ClienteConta ON ClienteConta.numeroconta = Conta.numero
+  INNER JOIN Cliente ON Cliente.id = ClienteConta.idcliente
+  WHERE Cliente.nome = c_nome 
+  into numero,numeroagencia,nire,saldo; 
+END; $$
+
+select * from Cliente;
+
+select * from get_CONTAS('Adriano Sales Neto');
 ### 3. Aumenta o salário de todos os funcionarios do banco
 
 ```
