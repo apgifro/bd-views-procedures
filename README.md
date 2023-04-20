@@ -94,3 +94,19 @@ create or replace function banco.obter_telefone(
 	
 select * from banco.obter_telefone('1')
 ```
+### 3. Aumenta o salário de todos os funcionario do banco
+
+```
+CREATE OR REPLACE PROCEDURE aumentaSALARIO(
+	   f_salario IN Funcionario.salario%TYPE)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  UPDATE Funcionario SET salario = (Funcionario.salario + f_salario);
+  RETURN;
+END; $$
+
+call aumentaSALARIO(2);
+
+select * from Funcionario;
+```
