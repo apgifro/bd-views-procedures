@@ -66,3 +66,31 @@ select
 	
 select * from banco.saldo_superior_a_50000;
 ```
+
+## Procedures
+
+### 1. Mostrar qual o número de telefone de um funcionário de um banco. 
+
+```
+drop function banco.obter_telefone;
+
+create or replace function banco.obter_telefone(
+		in input_cpf numeric(11),
+		out "Nome do Funcionário" varchar,
+		out "Telefone" numeric(10)
+	)
+	language 'plpgsql' as 
+	$$
+	begin
+		select 
+			funcionario.nome,
+			telefonefuncionario.telefone
+			from banco.funcionario
+				inner join banco.telefonefuncionario on telefonefuncionario.cpf = funcionario.cpf
+			where funcionario.cpf = input_cpf
+		into "Nome do Funcionário", "Telefone";
+	end;
+	$$;
+	
+select * from banco.obter_telefone('1')
+```
