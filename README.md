@@ -94,7 +94,7 @@ create or replace function banco.obter_telefone(
 	
 select * from banco.obter_telefone('1')
 ```
-### 3. Aumenta o salário de todos os funcionario do banco
+### 3. Aumenta o salário de todos os funcionarios do banco
 
 ```
 CREATE OR REPLACE PROCEDURE aumentaSALARIO(
