@@ -98,7 +98,7 @@ select * from banco.obter_telefone('1')
 
 ### 2. Mostra todas as contas e saldo em banco de um cliente selecionado
 
-
+```
 CREATE OR REPLACE FUNCTION get_CONTAS(
 	    IN c_nome VARCHAR,
 		OUT numero NUMERIC,
@@ -118,6 +118,8 @@ END; $$
 select * from Cliente;
 
 select * from get_CONTAS('Adriano Sales Neto');
+```
+
 ### 3. Aumenta o salário de todos os funcionarios do banco
 
 ```
