@@ -132,7 +132,7 @@ BEGIN
   RETURN;
 END; $$
 
-call aumentaSALARIO(2);
+call aumentaSALARIO(200);
 
 select * from Funcionario;
 ```
