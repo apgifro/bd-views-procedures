@@ -136,3 +136,36 @@ call aumentaSALARIO(2);
 
 select * from Funcionario;
 ```
+
+### 4. Exibir último empréstimo feito pelo cliente de um banco selecionado a partir de seu ID.
+
+```
+drop function banco.obter_emprestimo_mais_recente;
+
+create or replace function 
+	banco.obter_emprestimo_mais_recente(input_id numeric(9))
+	returns table(
+		"Nome" varchar(50), 
+		"Valor" numeric(11,2),
+		"Juros" numeric(5,3)) 
+	language plpgsql as $$
+	begin
+	return query
+		select
+		cliente.nome,
+		emprestimo.valor,
+		emprestimo.taxajuros
+		from banco.cliente
+			join banco.realiza on cliente.id = realiza.idcliente
+			join banco.emprestimo on realiza.idemprestimo = emprestimo.id
+		where cliente.id = input_id and realiza.idemprestimo in (
+			-- Obtém o último registro
+			select max(idemprestimo) from banco.realiza 
+			where realiza.idcliente = cliente.id
+		); 
+	return;
+	end;
+	$$;
+
+select * from banco.obter_emprestimo_mais_recente('2')
+```
