@@ -99,23 +99,25 @@ select * from banco.obter_telefone('1')
 ### 2. Mostra todas as contas e saldo em banco de um cliente selecionado.
 
 ```
+
 CREATE OR REPLACE FUNCTION get_CONTAS(
-	    IN c_nome VARCHAR,
-		OUT numero NUMERIC,
-		OUT numeroagencia NUMERIC,
-		OUT nire NUMERIC,
-		OUT saldo NUMERIC)
+	    IN c_nome VARCHAR) RETURNS TABLE(nomebanco VARCHAR,
+		numeroconta NUMERIC,
+		numeroagencia NUMERIC,
+		nire NUMERIC)
 LANGUAGE plpgsql
 AS $$
 BEGIN
-  Select * from Conta
-  INNER JOIN ClienteConta ON ClienteConta.numeroconta = Conta.numero
+RETURN query
+  Select banco.nome as "Nome do banco", ClienteConta.numeroconta,ClienteConta.numeroagencia,
+  ClienteConta.nire from ClienteConta
+  INNER JOIN banco ON banco.nire = ClienteConta.nire
   INNER JOIN Cliente ON Cliente.id = ClienteConta.idcliente
-  WHERE Cliente.nome = c_nome 
-  into numero,numeroagencia,nire,saldo; 
+  WHERE Cliente.nome = c_nome;
+  RETURN; 
 END; $$
 
-select * from Cliente;
+select * from ClienteConta;
 
 select * from get_CONTAS('Adriano Sales Neto');
 ```
