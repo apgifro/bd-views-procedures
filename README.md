@@ -96,7 +96,7 @@ select * from banco.obter_telefone('1')
 ```
 
 
-### 2. Mostra todas as contas e saldo em banco de um cliente selecionado
+### 2. Mostra todas as contas e saldo em banco de um cliente selecionado.
 
 ```
 CREATE OR REPLACE FUNCTION get_CONTAS(
@@ -120,7 +120,7 @@ select * from Cliente;
 select * from get_CONTAS('Adriano Sales Neto');
 ```
 
-### 3. Aumenta o salário de todos os funcionarios do banco
+### 3. Aumenta o salário de todos os funcionarios do banco.
 
 ```
 CREATE OR REPLACE PROCEDURE aumentaSALARIO(
@@ -167,5 +167,5 @@ create or replace function
 	end;
 	$$;
 
-select * from banco.obter_emprestimo_mais_recente('2')
+select * from banco.obter_emprestimo_mais_recente('2');
 ```
