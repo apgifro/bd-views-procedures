@@ -182,19 +182,21 @@ select * from banco.obter_emprestimo_mais_recente('2');
 ### 5. Exibir o número de empréstimos que o cliente fez, caso haja algum.
 
 ```
-create or replace function verifica_tem_emprestimo(
+drop function banco.verifica_tem_emprestimo;
+
+create or replace function banco.verifica_tem_emprestimo(
 	input_clienteid numeric)
   returns text
 as
 $$
    declare
-      emprestimo realiza%rowtype;
+      emprestimo banco.realiza%rowtype;
 	  quantidade_emprestimo bigint;
 	  mensagem varchar(100);
 begin
 	select into quantidade_emprestimo
 		count(realiza.idcliente) 
-			from realiza 
+			from banco.realiza 
 		where realiza.idcliente = input_clienteid;
 		
 	mensagem := 'O cliente não fez nenhum empréstimo.';
@@ -205,6 +207,9 @@ begin
 	return mensagem;
 end;
 $$ language plpgsql;
+
+select * from banco.verifica_tem_emprestimo(2);
+```
 
 select * from verifica_tem_emprestimo(2);
 ```
