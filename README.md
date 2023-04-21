@@ -132,14 +132,14 @@ select * from banco.get_contas('Adriano Sales Neto');
 ### 3. Aumentar o salário de todos os funcionários dos bancos.
 
 ```
-CREATE OR REPLACE PROCEDURE aumentaSALARIO(
+create or replace procedure aumentaSALARIO(
 	   f_salario IN Funcionario.salario%TYPE)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-  UPDATE Funcionario SET salario = (Funcionario.salario + f_salario);
-  RETURN;
-END; $$
+language plpgsql
+as $$
+begin
+  update Funcionario set salario = (Funcionario.salario + f_salario);
+  return;
+end; $$
 
 call aumentaSALARIO(200);
 
