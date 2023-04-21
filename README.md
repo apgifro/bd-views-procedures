@@ -2,6 +2,10 @@
 
 Alexandre e Makalister.
 
+## Vídeo
+
+[Link para o YouTube](https://www.youtube.com/watch?v=HCa-Zkxwn1Y&t=9)
+
 ## Views
 
 ### 1. Quais os gerentes de cada agência de todos os bancos?
