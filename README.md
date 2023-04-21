@@ -173,7 +173,7 @@ select * from banco.obter_emprestimo_mais_recente('2');
 ```
 
 ### 5. Exibir o número de emprétimos que o cliente fez, caso haja algum.
-'''
+```
 
 create or replace function verifica_tem_emprestimo(
 	input_clienteid numeric)
@@ -200,4 +200,4 @@ end;
 $$ language plpgsql;
 
 select * from verifica_tem_emprestimo(2);
-'''
+```
