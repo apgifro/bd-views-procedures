@@ -211,5 +211,5 @@ $$ language plpgsql;
 select * from banco.verifica_tem_emprestimo(2);
 ```
 
-select * from verifica_tem_emprestimo(2);
-```
+
+
