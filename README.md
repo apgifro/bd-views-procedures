@@ -1,4 +1,6 @@
-# Views & Procedures
+# Views & Functions/Procedures
+
+Alexandre e Makalister.
 
 ## Views
 
@@ -67,7 +69,7 @@ select
 select * from banco.saldo_superior_a_50000;
 ```
 
-## Procedures
+## Functions/Procedures
 
 ### 1. Mostrar qual o número de telefone de um funcionário de um banco. 
 
@@ -96,33 +98,38 @@ select * from banco.obter_telefone('1')
 ```
 
 
-### 2. Mostra todas as contas e saldo em banco de um cliente selecionado.
+### 2. Mostrar todas as contas e saldo em banco de um cliente selecionado.
 
 ```
+drop function banco.get_contas;
 
-CREATE OR REPLACE FUNCTION get_CONTAS(
-	    IN c_nome VARCHAR) RETURNS TABLE(nomebanco VARCHAR,
-		numeroconta NUMERIC,
-		numeroagencia NUMERIC,
-		nire NUMERIC)
-LANGUAGE plpgsql
-AS $$
-BEGIN
-RETURN query
-  Select banco.nome as "Nome do banco", ClienteConta.numeroconta,ClienteConta.numeroagencia,
-  ClienteConta.nire from ClienteConta
-  INNER JOIN banco ON banco.nire = ClienteConta.nire
-  INNER JOIN Cliente ON Cliente.id = ClienteConta.idcliente
-  WHERE Cliente.nome = c_nome;
-  RETURN; 
-END; $$
+select * from banco.clienteconta;
 
-select * from ClienteConta;
+create or replace function banco.get_contas(in c_nome varchar) 
+	returns table("Banco" varchar,
+		"Número da Conta" numeric,
+		"Número da Agência" numeric,
+		"Código do Banco" numeric)
+language plpgsql
+as $$
+begin
+return query
+  select 
+  	banco.nome,
+  	clienteconta.numeroconta,
+	clienteconta.numeroagencia,
+  	clienteconta.nire
+	from banco.clienteconta
+  inner join banco.banco on banco.nire = clienteconta.nire
+  inner join banco.cliente on cliente.id = clienteconta.idcliente
+  where cliente.nome = c_nome;
+  return; 
+end; $$
 
-select * from get_CONTAS('Adriano Sales Neto');
+select * from banco.get_contas('Adriano Sales Neto');
 ```
 
-### 3. Aumenta o salário de todos os funcionarios do banco.
+### 3. Aumentar o salário de todos os funcionários dos bancos.
 
 ```
 CREATE OR REPLACE PROCEDURE aumentaSALARIO(
@@ -139,7 +146,7 @@ call aumentaSALARIO(200);
 select * from Funcionario;
 ```
 
-### 4. Exibir último empréstimo feito pelo cliente de um banco selecionado a partir de seu ID.
+### 4. Exibir último empréstimo feito por um cliente.
 
 ```
 drop function banco.obter_emprestimo_mais_recente;
@@ -172,9 +179,9 @@ create or replace function
 select * from banco.obter_emprestimo_mais_recente('2');
 ```
 
-### 5. Exibir o número de emprétimos que o cliente fez, caso haja algum.
-```
+### 5. Exibir o número de empréstimos que o cliente fez, caso haja algum.
 
+```
 create or replace function verifica_tem_emprestimo(
 	input_clienteid numeric)
   returns text
