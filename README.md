@@ -4,7 +4,7 @@ Alexandre e Makalister.
 
 ## Vídeo
 
-[Link para o YouTube.](https://www.youtube.com/watch?v=HCa-Zkxwn1Y&t=9)
+[Link para o YouTube.](https://youtu.be/HCa-Zkxwn1Y)
 
 ## Views
 
