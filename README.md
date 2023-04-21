@@ -129,21 +129,27 @@ end; $$
 select * from banco.get_contas('Adriano Sales Neto');
 ```
 
-### 3. Aumentar o salário de todos os funcionários dos bancos.
+### 3. Aumentar o salário de um funcionario passando o valor, e o nome como parâmetro.
 
 ```
-create or replace procedure aumentaSALARIO(
-	   f_salario IN Funcionario.salario%TYPE)
+create or replace function aumentaSALARIO( IN
+	   f_salario INT, IN f_nome varchar) returns setof funcionario
 language plpgsql
-as $$
+as $$ declare
+	linha funcionario%rowtype;
 begin
-  update Funcionario set salario = (Funcionario.salario + f_salario);
-  return;
+	for linha in
+	select * from funcionario where funcionario.nome = f_nome
+	loop
+		update Funcionario set salario = (Funcionario.salario + f_salario) where funcionario.nome = f_nome;
+		return next linha;
+	end loop;
+	return;
 end; $$
 
-call aumentaSALARIO(200);
+select * from aumentaSALARIO(1, 'Jessica Trindade');
 
-select * from Funcionario;
+select * from funcionario where nome = 'Jessica Trindade';
 ```
 
 ### 4. Exibir último empréstimo feito por um cliente.
