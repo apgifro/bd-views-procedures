@@ -1,10 +1,10 @@
-# Views & Functions/Procedures
+# Views & Functions
 
 Alexandre e Makalister.
 
 ## Vídeo
 
-[Link para o YouTube](https://www.youtube.com/watch?v=HCa-Zkxwn1Y&t=9)
+[Link para o YouTube.](https://www.youtube.com/watch?v=HCa-Zkxwn1Y&t=9)
 
 ## Views
 
@@ -73,7 +73,7 @@ select
 select * from banco.saldo_superior_a_50000;
 ```
 
-## Functions/Procedures
+## Functions
 
 ### 1. Mostrar qual o número de telefone de um funcionário de um banco. 
 
