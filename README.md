@@ -103,9 +103,9 @@ select * from banco.obter_telefone('1')
 ```
 drop function banco.get_contas;
 
-select * from banco.clienteconta;
+select * from clienteconta;
 
-create or replace function banco.get_contas(in c_nome varchar) 
+create or replace function get_contas(in c_nome varchar) 
 	returns table("Banco" varchar,
 		"Número da Conta" numeric,
 		"Número da Agência" numeric,
@@ -115,18 +115,19 @@ as $$
 begin
 return query
   select 
-  	banco.nome,
+  	cliente.nome,
   	clienteconta.numeroconta,
 	clienteconta.numeroagencia,
   	clienteconta.nire
-	from banco.clienteconta
-  inner join banco.banco on banco.nire = clienteconta.nire
-  inner join banco.cliente on cliente.id = clienteconta.idcliente
+	from clienteconta
+  inner join banco on banco.nire = clienteconta.nire
+  inner join cliente on cliente.id = clienteconta.idcliente
   where cliente.nome = c_nome;
   return; 
 end; $$
 
-select * from banco.get_contas('Adriano Sales Neto');
+select * from get_contas('Joao Augusto de Sa');
+select * from get_contas('Adriano Sales Neto');
 ```
 
 ### 3. Aumentar o salário de um funcionario passando o valor, e o nome como parâmetro.
